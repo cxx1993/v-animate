@@ -1,0 +1,82 @@
+@import url("../color.scss");
+
+@mixin checkbox(
+  $color:$white,
+  $bgColor: $primary-color, 
+  $borderColor:$primary-color,
+  $mr: 5px,
+  $border: 3px,
+  $width: 17px)
+{
+  width: $width;
+  height:$width;
+  background: #fff;
+  color: $color;
+  border-radius: $border;
+  border: 1px solid $borderColor;
+  font-weight: 500;
+  font-size: 14px;
+  position: relative;
+  cursor: pointer;
+  display: inline-block;
+  white-space: nowrap;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  margin-right: $mr;
+  // overflow: hidden;
+  -webkit-transition: border-color .25s cubic-bezier(.71,-.46,.29,1.46),background-color .25s cubic-bezier(.71,-.46,.29,1.46);
+  transition: border-color .25s cubic-bezier(.71,-.46,.29,1.46),background-color .25s cubic-bezier(.71,-.46,.29,1.46);
+  
+  input[type=checkbox]{
+    margin: 0;
+    padding: 0;
+    opacity: 0;
+    outline: none;
+    position: absolute;
+    margin: 0;
+    width: 0;
+    height: 0;
+    z-index: -1;
+  }
+  &::after{
+    -webkit-box-sizing: content-box;
+            box-sizing: content-box;
+    content: "";
+    border: 1px solid #fff;
+    border-left: 0;
+    border-top: 0;
+    width: $width*0.2;
+    height: $width*0.5;
+    left: $width*0.3;
+    position: absolute;
+    top: $width*0.1;
+    -webkit-transform: rotate(45deg) scaleY(0);
+            transform: rotate(45deg) scaleY(0);
+    -webkit-transition: -webkit-transform .15s ease-in .05s;
+    transition: -webkit-transform .15s ease-in .05s;
+    transition: transform .15s ease-in .05s;
+    transition: transform .15s ease-in .05s, -webkit-transform .15s ease-in .05s;
+    -webkit-transform-origin: center;
+            transform-origin: center;
+  }
+  // 选中
+  &.checkbox-checked{
+    background: $bgColor;
+    border: 1px solid $borderColor;
+  }
+  &.checkbox-checked::after{
+    -webkit-transform: rotate(45deg) scaleY(1);
+            transform: rotate(45deg) scaleY(1);
+  }
+  // 禁用
+  &.checkbox-checked.disabled{
+    background: $disable-color;
+    color: #fff;
+  }
+  &.disabled{
+    border-color: $disable-color;
+    cursor: no-drop;
+  }
+}

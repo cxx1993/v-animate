@@ -1,0 +1,190 @@
+/**
+ * button点击扩散样式
+ * @author: chenxin
+ */
+
+@import '../color.scss';
+@import '../mixins/button.scss';
+@import '../mixins/checkbox.scss';
+@import '../mixins/radio.scss';
+
+// primary, success, warning, danger, info
+@each $suffix,
+$color in (primary, $primary-color),
+(success, $success-color),
+(warning, $warning-color),
+(danger, $danger-color),
+(info, $info-color) {
+  @-webkit-keyframes waveEffect-#{$suffix} {
+    100% {
+      -webkit-box-shadow: 0 0 0 #{$color};
+      box-shadow: 0 0 0 #{$color};
+      -webkit-box-shadow: 0 0 0 6px #{$color};
+      box-shadow: 0 0 0 6px #{$color};
+    }
+  }
+
+  @keyframes waveEffect-#{$suffix} {
+    100% {
+      -webkit-box-shadow: 0 0 0 #{$color};
+      box-shadow: 0 0 0 #{$color};
+      -webkit-box-shadow: 0 0 0 6px #{$color};
+      box-shadow: 0 0 0 6px #{$color};
+    }
+  }
+}
+
+
+@-webkit-keyframes fadeEffect {
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes fadeEffect {
+  100% {
+    opacity: 0;
+  }
+}
+
+
+@mixin wave($color: $primary-color, $wEffect: waveEffect-primary) {
+
+  &[click-animating='true'],
+  &[click-animating-without-extra-node='true'] {
+    position: relative;
+  }
+
+  &[click-animating-without-extra-node='true']::after,
+  &.click-animating-node {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: block;
+    border-radius: inherit;
+    -webkit-box-shadow: 0 0 0 0 $color;
+    box-shadow: 0 0 0 0 $color;
+    -webkit-box-shadow: 0 0 0 0 $color;
+    box-shadow: 0 0 0 0 $color;
+    opacity: 0.2;
+    -webkit-animation: fadeEffect 2s cubic-bezier(0.08, 0.82, 0.17, 1), $wEffect 0.4s cubic-bezier(0.08, 0.82, 0.17, 1);
+    animation: fadeEffect 2s cubic-bezier(0.08, 0.82, 0.17, 1), $wEffect 0.4s cubic-bezier(0.08, 0.82, 0.17, 1);
+    -webkit-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+    content: '';
+    pointer-events: none;
+  }
+}
+
+// btn
+@each $title,
+$color in (primary, $primary-color),
+(success, $success-color),
+(warning, $warning-color),
+(danger, $danger-color),
+(info, $info-color) {
+  .wave-btn-#{$title} {
+    @include button($bgColor: $color, $border:$color);
+    @include wave($color: $color, $wEffect: waveEffect-#{$title});
+  }
+}
+
+// checkbox
+@-webkit-keyframes antCheckboxEffect {
+  0% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    opacity: 0.5;
+  }
+
+  100% {
+    -webkit-transform: scale(1.6);
+    transform: scale(1.6);
+    opacity: 0;
+  }
+}
+
+@keyframes antCheckboxEffect {
+  0% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    opacity: 0.5;
+  }
+
+  100% {
+    -webkit-transform: scale(1.8);
+    transform: scale(1.8);
+    opacity: 0;
+  }
+}
+
+.wave-checkbox {
+  @include checkbox;
+
+  &.checkbox-checked:not(.disabled)::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 1px solid $primary-color;
+    border-radius: 2px;
+    // visibility: hidden;
+    -webkit-animation: antCheckboxEffect .36s ease-in-out;
+    animation: antCheckboxEffect .36s ease-in-out;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    content: '';
+  }
+}
+
+
+// radio
+@-webkit-keyframes antRadioEffect {
+  0% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    opacity: 0.5;
+  }
+
+  100% {
+    -webkit-transform: scale(1.8);
+    transform: scale(1.8);
+    opacity: 0;
+  }
+}
+
+@keyframes antRadioEffect {
+  0% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    opacity: 0.5;
+  }
+
+  100% {
+    -webkit-transform: scale(1.8);
+    transform: scale(1.8);
+    opacity: 0;
+  }
+}
+
+.wave-radio {
+  @include radio;
+  &.radio-checked::before{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 1px solid darken($primary-color, 0.6);
+    border-radius: 50%;
+    // visibility: hidden;
+    -webkit-animation: antRadioEffect .36s ease-in-out;
+    animation: antRadioEffect .36s ease-in-out;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    content: '';
+  }
+}

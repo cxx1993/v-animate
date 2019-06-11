@@ -1,0 +1,35 @@
+@import url("../color.scss");
+
+@mixin button(
+  $text:$white,
+  $bgColor: $primary-color, 
+  $border:$primary-color,
+  $radius: 5px,
+  $hover: true)
+{
+  color: $text;
+  background-color: $bgColor;
+  outline: none;
+  border-radius: $radius;
+  margin: 0;
+  padding: 0;
+  border: 1px solid $border; //自定义边框
+  outline: none;
+  line-height: 1.499;
+  position: relative;
+  display: inline-block;
+  font-weight: 400;
+  white-space: nowrap;
+  text-align: center;
+  height: 32px;
+  padding: 0 15px;
+  cursor: pointer;
+  
+  @if $hover {
+    &:hover {
+      background-color: darken($bgColor,6%);
+      border-color:darken($border,6%);
+    }
+  }
+  
+}
