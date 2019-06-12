@@ -1,8 +1,27 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from './views/Home.vue'
 
 Vue.use(Router)
+
+const requireComponent = require.context(
+  './views',
+  false,
+  /[A-Za-z]\w+\.(vue|js)$/
+)
+
+export const routename = requireComponent.keys().map(v=>{
+  return v.replace('./','').replace('.vue','');
+})
+
+
+const nodeRoutes = routename.map(fileName =>{
+  return {
+    path: `/${fileName}`,
+    name: fileName,
+    component: () => import(/* webpackChunkName: "[request]" */ `./views/${fileName}.vue`)
+  }
+})
+
 
 export default new Router({
   mode: 'history',
@@ -10,16 +29,9 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'home',
-      component: Home
+      name: 'index',
+      redirect: { name: 'home' }
     },
-    {
-      path: '/wave',
-      name: 'wave',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "wave" */ './views/wave.vue')
-    }
+    ...nodeRoutes
   ]
 })

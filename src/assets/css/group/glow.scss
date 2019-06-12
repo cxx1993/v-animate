@@ -1,0 +1,39 @@
+@import '../mixins/button.scss';
+
+
+
+// // primary, success, warning, danger, info
+// @each $suffix,
+// $color in (primary, $primary-color),
+// (success, $success-color),
+// (warning, $warning-color),
+// (danger, $danger-color),
+// (info, $info-color) {
+//   @-webkit-keyframes glowEffect1-#{$suffix} {
+//     from { background-color: $color; -webkit-box-shadow: 0 0 9px $primary-font-color; }
+//     50% { background-color: darken($color, 0.5); -webkit-box-shadow: 0 0 18px darken($color, 0.5); }
+//     to { background-color: $color; -webkit-box-shadow: 0 0 9px $primary-font-color; }
+//   }
+
+//   @keyframes glowEffect1-#{$suffix} {
+//     from { background-color: $color; -webkit-box-shadow: 0 0 9px $primary-font-color; box-shadow: 0 0 9px $primary-font-color; }
+//     50% { background-color: darken($color, 0.5); -webkit-box-shadow: 0 0 18px darken($color, 0.5); box-shadow: 0 0 18px lighten($color, 0.5); }
+//     to { background-color: $color; -webkit-box-shadow: 0 0 9px $primary-font-color; box-shadow: 0 0 9px $primary-font-color; }
+//   }
+// }
+
+// // btn - 发光样式1
+// @each $title,
+// $color in (primary, $primary-color),
+// (success, $success-color),
+// (warning, $warning-color),
+// (danger, $danger-color),
+// (info, $info-color) {
+//   .glow-1-btn-#{$title} {
+//     @include button($bgColor: $color, $border:$color, $hover: false);
+//     // @include wave($color: $color, $wEffect: glowEffect1-#{$title});
+//     -webkit-animation-name: glowEffect1-#{$title};
+//     -webkit-animation-duration: 3s;
+//     -webkit-animation-iteration-count: infinite; 
+//   }
+// }
